@@ -6,7 +6,7 @@ class AuthenticationHelper:
     _confidential_client = None
 
     def __init__(self):
-        raise RuntimeError('Call instance() instead')
+        raise RuntimeError('Call get_confidential_client() instead')
 
     @staticmethod
     def get_confidential_client():
