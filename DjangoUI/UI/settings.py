@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "sslserver"
+    'Account.apps.AccountConfig',
+    'AzureManagement.apps.AzuremanagementConfig'
 ]
+
+if "127.0.0.1" in os.environ.get("REDIRECT_URI").lower() or "localhost" in os.environ.get("REDIRECT_URI").lower():
+    INSTALLED_APPS.append("sslserver")
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
