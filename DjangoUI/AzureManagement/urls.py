@@ -1,6 +1,6 @@
-from .views import ResourceGroupView
+from .views import SubscriptionsView
 from django.urls import path
 
 urlpatterns = [
-    path('', ResourceGroupView.as_view(), name="azure_management_home"),
+    path('', SubscriptionsView.as_view(), name="azure_management_home"),
 ]

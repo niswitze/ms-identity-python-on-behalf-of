@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, HttpResponse
-from Helpers.authentication import AuthenticationHelper
+from Helpers.msal_helper import AuthenticationHelper
 import os, uuid
 
 

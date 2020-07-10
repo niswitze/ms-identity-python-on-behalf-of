@@ -3,13 +3,13 @@ from django.views import View
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from Helpers.authentication import AuthenticationHelper
+from Helpers.msal_helper import AuthenticationHelper
 import requests as req
 import os, json
 
 # Create your views here.
 @method_decorator(login_required, name='dispatch')
-class ResourceGroupView(View):
+class SubscriptionsView(View):
 
     def get(self, request):
 
