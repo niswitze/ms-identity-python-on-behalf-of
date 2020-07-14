@@ -15,7 +15,7 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
 
-    if "runserver" or "runsslserver" in sys.argv:
+    if "runserver" or "runsslserver" or "migrate" in sys.argv:
         from dotenv import load_dotenv
         load_dotenv(".\local.env")
 

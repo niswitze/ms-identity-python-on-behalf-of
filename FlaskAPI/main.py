@@ -8,6 +8,7 @@ if os.getenv("FLASK_ENV") == "development":
     load_dotenv(".\local.env")
 
 app = Flask(__name__)
+
 app.register_blueprint(subscriptions)
 
 #obtained from https://github.com/Azure-Samples/ms-identity-python-webapi-azurefunctions/blob/master/Function/secureFlaskApp/__init__.py
