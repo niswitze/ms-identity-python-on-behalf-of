@@ -86,6 +86,7 @@ if "127.0.0.1" in os.environ.get("REDIRECT_URI").lower() or "localhost" in os.en
         }
     }
 else:
+    #requires install of the ODBC Driver 13 for SQL Server if it is not already present
     DATABASES = {
         'default': {
             'ENGINE': 'sql_server.pyodbc',
@@ -101,8 +102,6 @@ else:
             },
         },
     }
-
-# DATABASES = '{ODBC Driver 17 for SQL Server}'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
