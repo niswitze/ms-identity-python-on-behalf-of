@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'AzureManagement.apps.AzuremanagementConfig'
 ]
 
-if "127.0.0.1" in os.environ.get("REDIRECT_URI").lower() or "localhost" in os.environ.get("REDIRECT_URI").lower():
-    INSTALLED_APPS.append("sslserver")
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,13 +76,33 @@ WSGI_APPLICATION = 'UI.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
+if "127.0.0.1" in os.environ.get("REDIRECT_URI").lower() or "localhost" in os.environ.get("REDIRECT_URI").lower():
+    INSTALLED_APPS.append("sslserver")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'sql_server.pyodbc',
+            'NAME': os.environ.get("DATABASE_NAME"),
+            'USER': os.environ.get("DATABASE_USERNAME"),
+            'PASSWORD': os.environ.get("DATABASE_PASSWORD"),
+            'HOST': os.environ.get("DATABASE_HOST"),
+            'PORT': os.environ.get("DATABASE_PORT"),
+            'OPTIONS': {
+                'Driver': '{ODBC Driver 13 for SQL Server}',
+                'extra_params':'Encrypt=yes;TrustServerCertificate=no',
+                'connection_timeout':30
+            },
+        },
+    }
+
+# DATABASES = '{ODBC Driver 17 for SQL Server}'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
