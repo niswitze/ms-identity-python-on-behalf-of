@@ -3,7 +3,8 @@
 from flask import request
 from functools import wraps
 from jose import jwt
-import os, requests as req
+import os
+from helpers.requests_helper import RequestsHelper
 
 # Error handler
 class AuthError(Exception):
@@ -48,7 +49,7 @@ def requires_jwt_authorization(f):
         try:
             token = get_token_auth_header()
             key_url = os.environ.get("AUTHORITY") + "/discovery/v2.0/keys"
-            jwks = req.get(key_url).json()
+            jwks = RequestsHelper._get_discovery_key_session().get(key_url).json()
             unverified_header = jwt.get_unverified_header(token)
             rsa_key = {}
             for key in jwks["keys"]:

@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from Helpers.msal_helper import AuthenticationHelper
-import requests as req
+from Helpers.requests_helper import RequestsHelper
 import os, json
 
 # Create your views here.
@@ -27,9 +27,7 @@ class SubscriptionsView(View):
         if "error" in token_response:
             return HttpResponse("An Error Occured:" + token_response.get("error") + " " +  token_response.get("error_description"), status=404)
 
-        headers = {'Authorization': token_response['token_type'] + ' ' + token_response['access_token']}
-
-        rg_response = req.get(os.environ.get("FLASK_BACKEND_URL"), headers=headers).json()
+        rg_response = RequestsHelper._get_backend_api_session(token_response).get(os.environ.get("FLASK_BACKEND_URL")).json()
         rg_response_converted = json.dumps(rg_response)
 
         return HttpResponse(rg_response_converted)
