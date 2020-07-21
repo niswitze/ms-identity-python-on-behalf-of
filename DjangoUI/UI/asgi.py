@@ -8,17 +8,10 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/asgi/
 """
 
 import os
-from dotenv import load_dotenv
+from Helpers.environment_decision_helper import EnvironmentDecisionHelper
 
 from django.core.asgi import get_asgi_application
 
-if os.environ.get("ENVIRONMENT").lower() == "development":
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UI.development_settings')
-    load_dotenv("..\development.env")
-elif os.environ.get("ENVIRONMENT").lower() == "production":
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UI.production_settings')
-    load_dotenv("..\production.env")
-else:
-    raise Exception("No ENVIRONMENT variable set")
+EnvironmentDecisionHelper._set_environment_django_settings()
 
 application = get_asgi_application()

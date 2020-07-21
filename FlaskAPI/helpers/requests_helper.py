@@ -17,6 +17,7 @@ class RequestsHelper:
                 backoff_factor=0.1,
                 status_forcelist=[ 500, 502, 503, 504 ])
             session.mount('https://', adapters.HTTPAdapter(max_retries=retries))
+            session.mount('http://', adapters.HTTPAdapter(max_retries=retries))
             RequestsHelper._discovery_key_session = session
 
         return RequestsHelper._discovery_key_session
