@@ -1,11 +1,17 @@
 from flask import Flask, jsonify
 from blueprints.subscriptions_bp import subscriptions
 from helpers.authorization import AuthError
+from dotenv import load_dotenv
 import os
 
-if os.getenv("FLASK_ENV") == "development": 
-    from dotenv import load_dotenv
-    load_dotenv(".\local.env")
+if os.environ.get("FLASK_ENV").lower() == "development":
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UI.development_settings')
+    load_dotenv(".\development.env")
+elif os.environ.get("FLASK_ENV").lower() == "production":
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UI.production_settings')
+    load_dotenv(".\production.env")
+else:
+    raise Exception("No ENVIRONMENT variable set")
 
 app = Flask(__name__)
 

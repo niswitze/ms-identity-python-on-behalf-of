@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ.get("PRODUCTION_HOST")]
 
 
 # Application definition
@@ -76,31 +76,21 @@ WSGI_APPLICATION = 'UI.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-
-if "127.0.0.1" in os.environ.get("REDIRECT_URI").lower() or "localhost" in os.environ.get("REDIRECT_URI").lower():
-    INSTALLED_APPS.append("sslserver")
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
-else:
-    #requires install of the ODBC Driver 13 for SQL Server if it is not already present
-    DATABASES = {
-        'default': {
-            'ENGINE': 'sql_server.pyodbc',
-            'NAME': os.environ.get("DATABASE_NAME"),
-            'USER': os.environ.get("DATABASE_USERNAME"),
-            'PASSWORD': os.environ.get("DATABASE_PASSWORD"),
-            'HOST': os.environ.get("DATABASE_HOST"),
-            'PORT': os.environ.get("DATABASE_PORT"),
-            'OPTIONS': {
-                'Driver': '{ODBC Driver 13 for SQL Server}',
-                'extra_params':'Encrypt=yes;TrustServerCertificate=no',
-                'connection_timeout':30
-            },
+#requires install of the ODBC Driver 13 for SQL Server if it is not already present
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': os.environ.get("DATABASE_NAME"),
+        'USER': os.environ.get("DATABASE_USERNAME"),
+        'PASSWORD': os.environ.get("DATABASE_PASSWORD"),
+        'HOST': os.environ.get("DATABASE_HOST"),
+        'PORT': os.environ.get("DATABASE_PORT"),
+        'OPTIONS': {
+            'Driver': '{ODBC Driver 13 for SQL Server}',
+            'extra_params':'Encrypt=yes;TrustServerCertificate=no',
+            'connection_timeout':30
         },
+    },
     }
 
 # Password validation
