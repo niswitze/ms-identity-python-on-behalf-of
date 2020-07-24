@@ -1,5 +1,5 @@
 from flask.views import MethodView
-from flask import request
+from flask import request, jsonify
 from helpers.authorization import AuthError
 from helpers.authorization import requires_jwt_authorization
 from helpers.msal_helper import AuthenticationHelper
@@ -29,4 +29,4 @@ class SubscriptionsAPI(MethodView):
 
         subscriptions_list = req.get(os.environ.get("AZURE_MANAGEMENT_SUBSCRIPTIONS_URI"), headers=headers).json()
 
-        return subscriptions_list
+        return jsonify(subscriptions_list)
