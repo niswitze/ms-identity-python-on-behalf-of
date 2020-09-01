@@ -1,6 +1,6 @@
 from django.views import View
 from django.urls import reverse
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, HttpResponse
@@ -30,6 +30,8 @@ class LogOutView(View):
     def get(self, request):
 
         request.session.flush()
+
+        logout(request)
 
         accounts = AuthenticationHelper.get_confidential_client().get_accounts(username=request.user.username)
 
@@ -64,7 +66,7 @@ class CallbackView(View):
         try:
             current_session_user = User.objects.get(username=token_response['id_token_claims']['preferred_username'])
         except ObjectDoesNotExist as error:
-            current_session_user = User.objects.create_user(username=token_response['id_token_claims']['preferred_username'], email=token_response['id_token_claims']['preferred_username'], password='none')
+            current_session_user = User.objects.create_user(username=token_response['id_token_claims']['preferred_username'], email=token_response['id_token_claims']['preferred_username'], password=str(uuid.uuid4()))
 
         login(request, current_session_user)
 
