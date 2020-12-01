@@ -4,10 +4,10 @@ from dotenv import load_dotenv
 class EnvironmentDecisionHelper:
     
     def __init__(self):
-        raise RuntimeError('Call _set_environment_flask_settings instead')
+        raise RuntimeError('Call set_environment_flask_settings instead')
 
     @staticmethod
-    def _set_environment_flask_settings():
+    def set_environment_flask_settings():
         if os.environ.get("FLASK_ENV").lower() == "development":
             load_dotenv(".\development.env")
         elif os.environ.get("FLASK_ENV").lower() == "production":

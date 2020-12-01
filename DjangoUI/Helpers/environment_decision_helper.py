@@ -4,10 +4,10 @@ from dotenv import load_dotenv
 class EnvironmentDecisionHelper:
     
     def __init__(self):
-        raise RuntimeError('Call _set_environment_django_settings instead')
+        raise RuntimeError('Call set_environment_django_settings instead')
 
     @staticmethod
-    def _set_environment_django_settings():
+    def set_environment_django_settings():
         if os.environ.get("ENVIRONMENT").lower() == "development":
             os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UI.development_settings')
             load_dotenv(".\development.env")

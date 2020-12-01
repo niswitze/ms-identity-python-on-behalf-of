@@ -12,6 +12,6 @@ from Helpers.environment_decision_helper import EnvironmentDecisionHelper
 
 from django.core.asgi import get_asgi_application
 
-EnvironmentDecisionHelper._set_environment_django_settings()
+EnvironmentDecisionHelper.set_environment_django_settings()
 
 application = get_asgi_application()

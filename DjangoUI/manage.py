@@ -6,7 +6,7 @@ from Helpers.environment_decision_helper import EnvironmentDecisionHelper
 
 def main():
 
-    EnvironmentDecisionHelper._set_environment_django_settings()
+    EnvironmentDecisionHelper.set_environment_django_settings()
         
     try:
         from django.core.management import execute_from_command_line

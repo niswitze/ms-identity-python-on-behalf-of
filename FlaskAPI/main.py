@@ -5,7 +5,7 @@ from helpers.environment_decision_helper import EnvironmentDecisionHelper
 from datetime import timedelta
 import os
 
-EnvironmentDecisionHelper._set_environment_flask_settings()
+EnvironmentDecisionHelper.set_environment_flask_settings()
 
 app = Flask(__name__)
 
