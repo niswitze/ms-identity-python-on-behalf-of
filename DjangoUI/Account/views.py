@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, HttpResponse
 from Helpers.msal_helper import AuthenticationHelper
-import os, uuid
+import os, secrets
 
 
 
@@ -26,7 +26,7 @@ class LoginView(View):
 
     def get(self, request):
 
-        request.session['auth_state'] = str(uuid.uuid4())
+        request.session['auth_state'] = secrets.token_urlsafe()
 
         #generating sign in url to initate the user's sign in with AAD 
         sign_in_url = AuthenticationHelper.get_confidential_client().get_authorization_request_url(
@@ -114,8 +114,8 @@ class CallbackView(View):
         try:
             current_session_user = User.objects.get(username=token_response['id_token_claims']['preferred_username'])
         except ObjectDoesNotExist as error:
-            #create the user the in Django managed database for session purposes
-            current_session_user = User.objects.create_user(username=token_response['id_token_claims']['preferred_username'], email=token_response['id_token_claims']['preferred_username'], password=str(uuid.uuid4()))
+            #create the user the in Django managed database for session/authentication middleware purposes
+            current_session_user = User.objects.create_user(username=token_response['id_token_claims']['preferred_username'], email=token_response['id_token_claims']['preferred_username'], password=secrets.token_bytes(32))
 
         login(request, current_session_user)
 
