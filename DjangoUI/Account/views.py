@@ -56,8 +56,6 @@ class LogOutView(View):
     def get(self, request):
 
         #remove the user's session from the Django managed database
-        request.session.flush()
-
         logout(request)
 
         accounts = AuthenticationHelper.get_confidential_client().get_accounts(username=request.user.username)
