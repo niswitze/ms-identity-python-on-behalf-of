@@ -4,7 +4,7 @@ languages:
 - python
 products:
 - azure-active-directory
-description: "This sample demonstrates a Python web application calling a Python web API that then calls the Azure Management API subscriptions endpoint. The web application and api are secured using Azure Active Directory."
+description: "This sample demonstrates a Python web application calling a Python web API that then calls the Azure Management API subscriptions endpoint. The web application and API are secured using Azure Active Directory."
 urlFragment: ms-identity-python-on-behalf-of
 ---
 
