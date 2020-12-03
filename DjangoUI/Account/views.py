@@ -84,11 +84,6 @@ class CallbackView(View):
         into the request's query string, under the code parameter, and stored in the user's session. 
         This method will then complete the authentication process, using Django's authenticatio middleware, and redirect the user to the home page.
 
-    Raises
-    ------
-    AuthError
-        If an error occurs in obtaining the auth state or auth code from the request's query string or an error occurs in generating an access token from the auth code.
-
     """
 
     def get(self, request):
