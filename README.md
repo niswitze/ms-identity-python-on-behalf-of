@@ -5,7 +5,7 @@ languages:
 products:
 - azure-active-directory
 - microsoft identity platform
-description: "This sample demonstrates a Python web application calling a Python web API that then calls the Azure Management API subscriptions endpoint. THe web application and api are secured using Azure Active Directory."
+description: "This sample demonstrates a Python web application calling a Python web API that then calls the Azure Management API subscriptions endpoint. The web application and api are secured using Azure Active Directory."
 urlFragment: ms-identity-python-on-behalf-of
 ---
 
