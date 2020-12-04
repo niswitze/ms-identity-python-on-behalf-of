@@ -89,7 +89,7 @@ class CallbackView(View):
     """
 
     def get(self, request):
-        expected_state = request.session['auth_state']
+        expected_state = request.session.get("auth_state", None)
 
         if request.GET.get('state') != expected_state:
             return HttpResponse("State obtained from callback was not the same as state passed in from the authorization url",status=404)
@@ -101,7 +101,7 @@ class CallbackView(View):
             code=request.GET.get('code'),
             scopes=[os.environ.get("SCOPE")],
             redirect_uri=os.environ.get("REDIRECT_URI"),
-            nonce=request.session['nonce']
+            nonce=request.session.get('nonce', None)
         )
 
         if "error" in token_response:
@@ -114,6 +114,11 @@ class CallbackView(View):
             current_session_user = User.objects.create_user(username=token_response['id_token_claims']['preferred_username'], email=token_response['id_token_claims']['preferred_username'], password=secrets.token_bytes(32))
 
         login(request, current_session_user)
+
+        #remove used auth_state and nonce values from request session
+        del request.session['auth_state']
+        del request.session['nonce']
+        request.session.modified = True
 
         return HttpResponseRedirect(reverse("azure_management_home"))
 
