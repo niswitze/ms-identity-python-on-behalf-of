@@ -26,13 +26,15 @@ class LoginView(View):
 
     def get(self, request):
 
-        request.session['auth_state'] = secrets.token_urlsafe()
+        request.session['auth_state'] = secrets.token_urlsafe(32)
+        request.session['nonce'] = secrets.token_urlsafe(32)
 
         #generating sign in url to initate the user's sign in with AAD 
         sign_in_url = AuthenticationHelper.get_confidential_client().get_authorization_request_url(
             scopes=[os.environ.get("SCOPE")],
             state=request.session['auth_state'],
-            redirect_uri=os.environ.get("REDIRECT_URI")
+            redirect_uri=os.environ.get("REDIRECT_URI"),
+            nonce=request.session['nonce']
         )
 
         return HttpResponseRedirect(sign_in_url)
@@ -98,7 +100,8 @@ class CallbackView(View):
         token_response = AuthenticationHelper.get_confidential_client().acquire_token_by_authorization_code(
             code=request.GET.get('code'),
             scopes=[os.environ.get("SCOPE")],
-            redirect_uri=os.environ.get("REDIRECT_URI")
+            redirect_uri=os.environ.get("REDIRECT_URI"),
+            nonce=request.session['nonce']
         )
 
         if "error" in token_response:
