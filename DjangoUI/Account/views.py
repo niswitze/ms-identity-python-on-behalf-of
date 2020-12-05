@@ -57,15 +57,15 @@ class LogOutView(View):
 
     def get(self, request):
 
-        #remove the user's session from the Django managed database
-        request.session.flush()
-
-        accounts = AuthenticationHelper.get_confidential_client().get_accounts(username=request.user.username)
+        accounts = AuthenticationHelper.get_confidential_client().get_accounts(username=request.session["user_name"])
 
         if len(accounts) != 0:
             #remove the user's account from the token cache
             AuthenticationHelper.get_confidential_client().remove_account(account=accounts[0])
-            
+
+        #remove the user's session from the Django managed database
+        request.session.flush()
+
         logout_url = os.environ.get("AUTHORITY") + os.environ.get("LOGOUT_URL") + os.environ.get("POST_LOGOUT_REDIRECT_URI")
 
         return HttpResponseRedirect(logout_url)
