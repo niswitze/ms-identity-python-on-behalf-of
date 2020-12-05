@@ -58,7 +58,7 @@ class LogOutView(View):
     def get(self, request):
 
         #remove the user's session from the Django managed database
-        logout(request)
+        request.session.flush()
 
         accounts = AuthenticationHelper.get_confidential_client().get_accounts(username=request.user.username)
 
@@ -107,13 +107,9 @@ class CallbackView(View):
         if "error" in token_response:
             return HttpResponse("An Error Occured:" + token_response.get("error") + " " +  token_response.get("error_description"), status=404)
 
-        try:
-            current_session_user = User.objects.get(username=token_response['id_token_claims']['preferred_username'])
-        except ObjectDoesNotExist as error:
-            #create the user the in Django managed database for session/authentication middleware purposes
-            current_session_user = User.objects.create_user(username=token_response['id_token_claims']['preferred_username'], email=token_response['id_token_claims']['preferred_username'], password=secrets.token_bytes(32))
-
-        login(request, current_session_user)
+        #sets the user_name value for this session, which will be used to determine if a user has been fully authenticated or not
+        #when managing user sign in via sessions, ensure to set the SESSION_COOKIE_AGE setting to a low number of seconds
+        request.session["user_name"] = token_response['id_token_claims']['preferred_username']
 
         #remove used auth_state and nonce values from request session
         del request.session['auth_state']
