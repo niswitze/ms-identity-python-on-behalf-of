@@ -18,11 +18,14 @@ The following list details the steps to run this sample solution locally:
 1. Follow the [Register the application and service in Azure AD](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/active-directory/azuread-dev/v1-oauth2-on-behalf-of-flow.md#register-the-application-and-service-in-azure-ad) section in the Azure Docs to create and configure app registrations in Azure Active Directory for the UI and API applications.
 
     * Ensure the property [accessTokenAcceptedVersion](https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-app-manifest?WT.mc_id=Portal-Microsoft_AAD_RegisteredApps#accesstokenacceptedversion-attribute) has been updated, in both app registration manifests, to have a value of **2**.
->Only use the [Register the application and service in Azure AD](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/active-directory/azuread-dev/v1-oauth2-on-behalf-of-flow.md#register-the-application-and-service-in-azure-ad) section for configuring the required app registrations in Azure Active Directory from step 1. For examples and further reference, please use the [Microsoft Identity platform](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/active-directory/develop/v2-oauth2-on-behalf-of-flow.md) documentation instead.
+    * Ensure the scope user_impersonation for the Azure Management API, under the API Permissions blade, has been added to the API app registration.  
 
-2. Use the production.env files in both applications to create local, development.env, files.
 
-3. Select the Python interpreter for <a href="https://code.visualstudio.com/docs/languages/python">VS Code</a> to use and execute the debugger.
+>NOTE! Only use the [Register the application and service in Azure AD](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/active-directory/azuread-dev/v1-oauth2-on-behalf-of-flow.md#register-the-application-and-service-in-azure-ad) section for configuring the required app registrations in Azure Active Directory from step 1. For examples and further reference, please use the [Microsoft Identity platform](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/active-directory/develop/v2-oauth2-on-behalf-of-flow.md) documentation instead.
+
+1. Use the production.env files in both applications to create local, development.env, files.
+
+2. Select the Python interpreter for <a href="https://code.visualstudio.com/docs/languages/python">VS Code</a> to use and execute the debugger.
     * For this sample, each application will need to be opened in a seperate VS Code instance.
 
 
