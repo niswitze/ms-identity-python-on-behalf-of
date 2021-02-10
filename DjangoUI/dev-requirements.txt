@@ -16,7 +16,7 @@ chardet==3.0.4
 
 colorama==0.4.4; sys_platform == 'win32' and sys_platform == 'win32'
 
-cryptography==3.2.1
+cryptography==3.3.2
 
 django-sslserver==0.22
 
