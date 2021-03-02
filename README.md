@@ -8,6 +8,11 @@ description: "This sample demonstrates a Python web application calling a Python
 urlFragment: ms-identity-python-on-behalf-of
 ---
 
+>
+```diff
+-NOTE! The most updated version of this sample exists at https://github.com/Azure-Samples/ms-identity-python-on-behalf-of.
+```
+
 # Microsoft identity platform and OAuth 2.0 On-Behalf-Of flow in Python
 This repository contains a sample solution that demonstrates how to implement the OAuth 2.0 On-behalf-of flow using the Microsoft Identity platform (MSAL) for Python. 
 
